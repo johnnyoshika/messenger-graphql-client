@@ -17,11 +17,11 @@ const ChannelsList = () => {
   const { channels } = data;
 
   return (
-    <ul className="ChannelsList">
+    <div className="ChannelsList">
       {channels.map(channel => (
-        <li key={channel.id}>{channel.name}</li>
+        <div key={channel.id}>{channel.name}</div>
       ))}
-    </ul>
+    </div>
   );
 };
 
