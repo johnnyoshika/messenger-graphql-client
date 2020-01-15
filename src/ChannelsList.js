@@ -9,9 +9,20 @@ import AddChannel from './AddChannel';
 import './ChannelsList.css';
 
 const ChannelsList = () => {
-  const { data, loading, error } = useQuery(GET_CHANNELS);
+  const { data, loading, error, refetch } = useQuery(GET_CHANNELS);
 
-  if (error) return <Error error={error} />;
+  const retry = () => {
+    refetch().catch(() => {}); // Unless we catch, a network error will cause an unhandled rejection: https://github.com/apollographql/apollo-client/issues/3963
+  };
+  
+  if (error)
+    return (
+      <Error error={error}>
+        <div>
+          <button type="button" onClick={retry}>Try again!</button>
+        </div>
+      </Error>
+    );
 
   if (loading && !data) return <Loading />;
 
