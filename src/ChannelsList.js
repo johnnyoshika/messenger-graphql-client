@@ -4,6 +4,7 @@ import { GET_CHANNELS } from './queries';
 
 import Error from './shared/Error';
 import Loading from './shared/Loading';
+import AddChannel from './AddChannel';
 
 import './ChannelsList.css';
 
@@ -18,6 +19,7 @@ const ChannelsList = () => {
 
   return (
     <div className="ChannelsList">
+      <AddChannel />
       {channels.map(channel => (
         <div key={channel.id}>{channel.name}</div>
       ))}
