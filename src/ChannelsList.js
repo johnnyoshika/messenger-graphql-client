@@ -32,7 +32,7 @@ const ChannelsList = () => {
     <div className="ChannelsList">
       <AddChannel />
       {channels.map(channel => (
-        <div key={channel.id}>{channel.name}</div>
+        <div key={channel.id} className={channel.id.startsWith('_') ? 'ChannelsList-optimistic' : ''}>{channel.name}</div>
       ))}
     </div>
   );
