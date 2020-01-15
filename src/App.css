@@ -16,15 +16,3 @@
 .App-intro {
   font-size: large;
 }
-
-.Item-list {
-  list-style: none;
-}
-
-.Item-list li {
-  border: 1px dotted gray;
-  width: 20%;
-  height: 3em;  
-  margin: auto;
-  text-align: left;
-}
