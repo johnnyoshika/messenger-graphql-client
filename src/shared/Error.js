@@ -1,9 +1,12 @@
 import React from 'react';
 import './Error.css';
 
-const Error = ({ error }) => (
+const Error = ({ error, children }) => (
   <div className="Error">
-    {error.toString()}
+    <div>
+      {error.toString()}
+    </div>
+    {children}
   </div>
 );
 
