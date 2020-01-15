@@ -44,8 +44,9 @@ const AddChannel = () => {
   
   const onSubmit = e => {
     e.preventDefault();
-    addChannel();
+    const previous = channel;
     setChannel('');
+    addChannel().catch(() => setChannel(previous));
   };
 
   return (
