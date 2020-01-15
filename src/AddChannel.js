@@ -30,6 +30,13 @@ const AddChannel = () => {
     variables: {
       name: channel
     },
+    optimisticResponse: {
+      addChannel: {
+        __typename: 'Channel',
+        id: '_' + Math.round(Math.random() * 1000000),
+        name: channel
+      }
+    },
     update: updateChannels
   });
   
@@ -37,8 +44,8 @@ const AddChannel = () => {
   
   const onSubmit = e => {
     e.preventDefault();
-    addChannel()
-      .then(() => setChannel(''));
+    addChannel();
+    setChannel('');
   };
 
   return (
