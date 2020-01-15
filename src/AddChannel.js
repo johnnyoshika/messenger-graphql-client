@@ -3,7 +3,25 @@ import { useMutation } from '@apollo/react-hooks';
 
 import Error from './shared/Error';
 
+import { GET_CHANNELS } from './queries';
 import { ADD_CHANNEL } from './mutations';
+
+const updateChannels = (cache, { data: { addChannel: channel } }) => {
+  const data = cache.readQuery({
+    query: GET_CHANNELS
+  });
+
+  cache.writeQuery({
+    query: GET_CHANNELS,
+    data: {
+      ...data,
+      channels: [
+        ...data.channels,
+        channel
+      ]
+    }
+  });
+};
 
 const AddChannel = () => {
   const [channel, setChannel] = useState('');
@@ -11,7 +29,8 @@ const AddChannel = () => {
   const [addChannel, { error }] = useMutation(ADD_CHANNEL, {
     variables: {
       name: channel
-    }
+    },
+    update: updateChannels
   });
   
   const onChange = e => setChannel(e.target.value);
