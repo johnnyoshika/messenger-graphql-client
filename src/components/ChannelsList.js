@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_CHANNELS } from '../queries';
 
@@ -12,9 +13,11 @@ const ChannelsList = () => {
   const { data, loading, error, refetch } = useQuery(GET_CHANNELS);
 
   const retry = () => {
-    refetch().catch(() => {}); // Unless we catch, a network error will cause an unhandled rejection: https://github.com/apollographql/apollo-client/issues/3963
+    refetch().catch(() => { }); // Unless we catch, a network error will cause an unhandled rejection: https://github.com/apollographql/apollo-client/issues/3963
   };
-  
+
+  const isOptimistic = channel => channel.id.startsWith('_');
+
   if (error)
     return (
       <Error error={error}>
@@ -32,7 +35,15 @@ const ChannelsList = () => {
     <div className="ChannelsList">
       <AddChannel />
       {channels.map(channel => (
-        <div key={channel.id} className={channel.id.startsWith('_') ? 'ChannelsList-optimistic' : ''}>{channel.name}</div>
+        <div key={channel.id} className={isOptimistic(channel) ? 'ChannelsList-optimistic' : ''}>
+          {isOptimistic(channel) ? (
+            <span>{channel.name}</span>
+          ) : (
+            <Link to={`/channels/${channel.id}`}>
+              {channel.name}
+            </Link>
+          )}
+        </div>
       ))}
     </div>
   );
