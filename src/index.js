@@ -7,6 +7,7 @@ import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { toIdValue } from 'apollo-utilities';
 
 import './index.css';
 import App from './App';
@@ -26,7 +27,16 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const link = ApolloLink.from([errorLink, httpLink]);
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  cacheRedirects: {
+    Query: {
+      channel: (_, args) => toIdValue(cache.config.dataIdFromObject({
+        __typename: 'Channel',
+        id: args.id
+      }))
+    }
+  }
+});
 
 const client = new ApolloClient({
   link,

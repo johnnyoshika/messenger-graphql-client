@@ -2,10 +2,10 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import Error from './shared/Error';
-import Loading from './shared/Loading';
 import NotFound from './shared/NotFound';
 import MessagesList from './MessagesList';
 import AddMessage from './AddMessage';
+import ChannelPreview from './ChannelPreview';
 
 import { GET_CHANNEL_DETAILS } from '../queries';
 
@@ -27,7 +27,7 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
       </Error>
     );
 
-  if (loading && !data) return <Loading />;
+  if (loading && !data) return <ChannelPreview id={id} />;
 
   const { channel } = data;
 
