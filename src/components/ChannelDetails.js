@@ -14,7 +14,11 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
   const { data, loading, error, refetch, subscribeToMore } = useQuery(GET_CHANNEL_DETAILS, {
     variables: {
       id
-    }
+    },
+    // Start with cache, but then fetch from network in case new messages were added
+    // while we were away from this channel page, and therefore,
+    // not subscribed to messageAdded subscription for this channel.
+    fetchPolicy: 'cache-and-network'
   });
 
   subscribeToMore({
@@ -46,7 +50,8 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
 
   const retry = () => refetch().catch(() => {}); // Unless we catch, a network error will cause an unhandled rejection: https://github.com/apollographql/apollo-client/issues/3963
 
-  if (error)
+  // If there's data in cache, even if there's a network error while re-fetching, proceed and show the cache data
+  if (error && !data)
     return (
       <Error error={error}>
         <div>
