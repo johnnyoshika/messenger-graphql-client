@@ -7,10 +7,10 @@ import NotFound from './shared/NotFound';
 import MessagesList from './MessagesList';
 import AddMessage from './AddMessage';
 
-import { GET_CHANNEL } from '../queries';
+import { GET_CHANNEL_DETAILS } from '../queries';
 
 const ChannelDetails = ({ match: { params: { id } } }) => {
-  const { data, loading, error, refetch } = useQuery(GET_CHANNEL, {
+  const { data, loading, error, refetch } = useQuery(GET_CHANNEL_DETAILS, {
     variables: {
       id
     }

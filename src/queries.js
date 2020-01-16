@@ -1,24 +1,20 @@
 import gql from 'graphql-tag';
-import { MESSAGE_FRAGMENT } from './fragments';
+import { CHANNEL_FRAGMENT, CHANNEL_DETAILS_FRAGMENT } from './fragments';
 
 export const GET_CHANNELS = gql`
   query {
     channels {
-      id
-      name
+      ...channel
     }
   }
+  ${CHANNEL_FRAGMENT}
 `;
 
-export const GET_CHANNEL = gql`
+export const GET_CHANNEL_DETAILS = gql`
   query($id: ID!) {
     channel(id: $id) {
-      id
-      name
-      messages {
-        ...message
-      }
+      ...channelDetails
     }
   }
-  ${MESSAGE_FRAGMENT}
+  ${CHANNEL_DETAILS_FRAGMENT}
 `;

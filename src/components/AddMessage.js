@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import Error from './shared/Error';
 
-import { GET_CHANNEL } from '../queries';
+import { GET_CHANNEL_DETAILS } from '../queries';
 import { ADD_MESSAGE } from '../mutations';
 
 const updateMessages = (
@@ -16,14 +16,14 @@ const updateMessages = (
   channelId
 ) => {
   const data = cache.readQuery({
-    query: GET_CHANNEL,
+    query: GET_CHANNEL_DETAILS,
     variables: {
       id: channelId
     }
   });
 
   cache.writeQuery({
-    query: GET_CHANNEL,
+    query: GET_CHANNEL_DETAILS,
     variables: {
       id: channelId
     },
