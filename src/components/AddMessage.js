@@ -22,6 +22,9 @@ const updateMessages = (
     }
   });
 
+  if (data.channel.messages.some(m => m.id === message.id))
+    return;
+
   cache.writeQuery({
     query: GET_CHANNEL_DETAILS,
     variables: {

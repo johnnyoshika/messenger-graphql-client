@@ -8,11 +8,39 @@ import AddMessage from './AddMessage';
 import ChannelPreview from './ChannelPreview';
 
 import { GET_CHANNEL_DETAILS } from '../queries';
+import { MESSAGE_ADDED_SUBSCRIPTION } from '../subscriptions';
 
 const ChannelDetails = ({ match: { params: { id } } }) => {
-  const { data, loading, error, refetch } = useQuery(GET_CHANNEL_DETAILS, {
+  const { data, loading, error, refetch, subscribeToMore } = useQuery(GET_CHANNEL_DETAILS, {
     variables: {
       id
+    }
+  });
+
+  subscribeToMore({
+    document: MESSAGE_ADDED_SUBSCRIPTION,
+    variables: {
+      channelId: id
+    },
+    updateQuery: (prev, {subscriptionData}) => {
+      if (!prev || !subscriptionData.data)
+        return prev;
+
+      const newMessage = subscriptionData.data.messageAdded;
+
+      if (prev.channel.messages.some(m => m.id === newMessage.id))
+        return prev;
+
+      return {
+        ...prev,
+        channel: {
+          ...prev.channel,
+          messages: [
+            ...prev.channel.messages,
+            newMessage
+          ]
+        }
+      };
     }
   });
 
