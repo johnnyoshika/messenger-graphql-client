@@ -5,6 +5,7 @@ import Error from './shared/Error';
 import Loading from './shared/Loading';
 import NotFound from './shared/NotFound';
 import MessagesList from './MessagesList';
+import AddMessage from './AddMessage';
 
 import { GET_CHANNEL } from '../queries';
 
@@ -38,6 +39,7 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
         {channel.name}
       </h2>
       <MessagesList messages={channel.messages} />
+      <AddMessage channelId={channel.id} />
     </div>
   );
 };
