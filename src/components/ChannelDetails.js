@@ -11,7 +11,7 @@ import { GET_CHANNEL_DETAILS } from '../queries';
 import { MESSAGE_ADDED_SUBSCRIPTION } from '../subscriptions';
 
 const ChannelDetails = ({ match: { params: { id } } }) => {
-  const { data, loading, error, refetch, subscribeToMore } = useQuery(GET_CHANNEL_DETAILS, {
+  const { data, loading, error, refetch, subscribeToMore, fetchMore } = useQuery(GET_CHANNEL_DETAILS, {
     variables: {
       id
     },
@@ -51,6 +51,30 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
     }
   });
 
+  const loadOlderMessages = () => {
+    fetchMore({
+      variables: {
+        channelId: id,
+        after: data.channel.messageFeed.endCursor
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => ({
+        ...previousResult,
+        channel: {
+          ...previousResult.channel,
+          messageFeed: {
+            ...previousResult.channel.messageFeed,
+            endCursor: fetchMoreResult.channel.messageFeed.endCursor,
+            hasNextPage: fetchMoreResult.channel.messageFeed.hasNextPage,
+            messages: [
+              ...previousResult.channel.messageFeed.messages,
+              ...fetchMoreResult.channel.messageFeed.messages
+            ]
+          }
+        }
+      })
+    });
+  };
+
   const retry = () => refetch().catch(() => {}); // Unless we catch, a network error will cause an unhandled rejection: https://github.com/apollographql/apollo-client/issues/3963
 
   // If there's data in cache, even if there's a network error while re-fetching, proceed and show the cache data
@@ -76,6 +100,13 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
       </h2>
       <AddMessage channelId={channel.id} />
       <MessagesList messages={channel.messageFeed.messages} />
+      {channel.messageFeed.hasNextPage && (
+        <div>
+          <button onClick={loadOlderMessages}>
+              Load Older Messages
+            </button>
+        </div>
+      )}
     </div>
   );
 };
