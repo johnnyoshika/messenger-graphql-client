@@ -50,6 +50,13 @@ const AddMessage = ({ channelId }) => {
         text: message
       }
     },
+    optimisticResponse: {
+      addMessage: {
+        __typename: 'Message',
+        id: '_' + Math.round(Math.random() * 1000000),
+        text: message
+      }
+    },
     update: (cache, result) => updateMessages(cache, result, channelId)
   });
 
