@@ -35,8 +35,8 @@ const updateMessages = (
       channel: {
         ...data.channel,
         messages: [
-          ...data.channel.messages,
-          message
+          message,
+          ...data.channel.messages
         ]
       }
     }

@@ -40,8 +40,8 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
         channel: {
           ...prev.channel,
           messages: [
-            ...prev.channel.messages,
-            newMessage
+            newMessage,
+            ...prev.channel.messages
           ]
         }
       };
@@ -71,8 +71,8 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
       <h2>
         {channel.name}
       </h2>
-      <MessagesList messages={channel.messages} />
       <AddMessage channelId={channel.id} />
+      <MessagesList messages={channel.messages} />
     </div>
   );
 };
