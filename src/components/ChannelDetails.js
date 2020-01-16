@@ -72,7 +72,7 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
         {channel.name}
       </h2>
       <AddMessage channelId={channel.id} />
-      <MessagesList messages={channel.messages} />
+      <MessagesList messages={channel.messageFeed.messages} />
     </div>
   );
 };

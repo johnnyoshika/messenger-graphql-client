@@ -13,14 +13,3 @@ export const CHANNEL_FRAGMENT = gql`
     name
   }
 `;
-
-export const CHANNEL_DETAILS_FRAGMENT = gql`
-  fragment channelDetails on Channel {
-    id
-    name
-    messages {
-      ...message
-    }
-  }
-  ${MESSAGE_FRAGMENT}
-`;
