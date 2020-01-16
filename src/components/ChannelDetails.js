@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import Error from './shared/Error';
 import Loading from './shared/Loading';
 import NotFound from './shared/NotFound';
+import MessagesList from './MessagesList';
 
 import { GET_CHANNEL } from '../queries';
 
@@ -36,9 +37,7 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
       <h2>
         {channel.name}
       </h2>
-      {channel.messages.map(message => (
-        <div key={message.id}>{message.text}</div>
-      ))}
+      <MessagesList messages={channel.messages} />
     </div>
   );
 };
