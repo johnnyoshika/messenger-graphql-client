@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ChannelDetails = () => (
+const ChannelDetails = ({ match: { params: { id } } }) => (
   <div>
-    Channel Details
+    Channel: {id}
   </div>
 );
 
