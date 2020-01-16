@@ -64,6 +64,7 @@ const AddMessage = ({ channelId }) => {
 
   return (
     <>
+      {error && <Error error={error} />}
       <form onSubmit={onSubmit}>
         <input
           type="text"
