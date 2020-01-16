@@ -3,8 +3,8 @@ import { useMutation } from '@apollo/react-hooks';
 
 import Error from './shared/Error';
 
-import { GET_CHANNELS } from './queries';
-import { ADD_CHANNEL } from './mutations';
+import { GET_CHANNELS } from '../queries';
+import { ADD_CHANNEL } from '../mutations';
 
 const updateChannels = (cache, { data: { addChannel: channel } }) => {
   const data = cache.readQuery({

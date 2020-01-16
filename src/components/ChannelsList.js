@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_CHANNELS } from './queries';
+import { GET_CHANNELS } from '../queries';
 
 import Error from './shared/Error';
 import Loading from './shared/Loading';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ChannelsList from './ChannelsList';
+import ChannelsList from './components/ChannelsList';
 
 import logo from './logo.svg';
 import './App.css';
