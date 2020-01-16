@@ -77,6 +77,7 @@ const AddMessage = ({ channelId }) => {
       {error && <Error error={error} />}
       <form onSubmit={onSubmit}>
         <input
+          className="input"
           type="text"
           placeholder="New message"
           onChange={onChange}

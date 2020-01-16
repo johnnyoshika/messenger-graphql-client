@@ -54,6 +54,7 @@ const AddChannel = () => {
       {error && <Error error={error} />}
       <form onSubmit={onSubmit}>
         <input
+          className="input"
           type="text"
           placeholder="New channel"
           onChange={onChange}

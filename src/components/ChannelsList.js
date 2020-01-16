@@ -30,7 +30,8 @@ const ChannelsList = () => {
   const { channels } = data;
 
   return (
-    <div className="ChannelsList">
+    <div>
+      <h2>Channels</h2>
       <AddChannel />
       {channels.map(channel => (
         <div key={channel.id} className={isOptimistic(channel) ? 'optimistic' : ''}>
