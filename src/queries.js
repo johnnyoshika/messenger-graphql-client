@@ -24,7 +24,7 @@ export const GET_CHANNEL_DETAILS = gql`
     channel(id: $id) {
       id
       name
-      messageFeed(after:$after) {
+      messageFeed(after:$after) @connection(key: "messageFeed") {
         endCursor
         hasNextPage
         messages {
