@@ -7,8 +7,6 @@ import Error from './shared/Error';
 import Loading from './shared/Loading';
 import AddChannel from './AddChannel';
 
-import './ChannelsList.css';
-
 const ChannelsList = () => {
   const { data, loading, error, refetch } = useQuery(GET_CHANNELS);
 
@@ -35,7 +33,7 @@ const ChannelsList = () => {
     <div className="ChannelsList">
       <AddChannel />
       {channels.map(channel => (
-        <div key={channel.id} className={isOptimistic(channel) ? 'ChannelsList-optimistic' : ''}>
+        <div key={channel.id} className={isOptimistic(channel) ? 'optimistic' : ''}>
           {isOptimistic(channel) ? (
             <span>{channel.name}</span>
           ) : (
