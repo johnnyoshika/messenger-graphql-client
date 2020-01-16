@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { MESSAGE_FRAGMENT } from './fragments';
 
 export const GET_CHANNELS = gql`
   query {
@@ -15,9 +16,9 @@ export const GET_CHANNEL = gql`
       id
       name
       messages {
-        id
-        text
+        ...message
       }
     }
   }
+  ${MESSAGE_FRAGMENT}
 `;
