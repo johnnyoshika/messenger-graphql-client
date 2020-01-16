@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { CHANNEL_FRAGMENT, CHANNEL_DETAILS_FRAGMENT } from './fragments';
+import { CHANNEL_FRAGMENT, MESSAGE_FRAGMENT } from './fragments';
 
 export const GET_CHANNELS = gql`
   query {
@@ -20,10 +20,18 @@ export const GET_CHANNEL = gql`
 `;
 
 export const GET_CHANNEL_DETAILS = gql`
-  query($id: ID!) {
+  query($id: ID!, $after: String) {
     channel(id: $id) {
-      ...channelDetails
+      id
+      name
+      messageFeed(after:$after) @connection(key: "messageFeed") {
+        endCursor
+        hasNextPage
+        messages {
+          ...message
+        }
+      }
     }
   }
-  ${CHANNEL_DETAILS_FRAGMENT}
+  ${MESSAGE_FRAGMENT}
 `;

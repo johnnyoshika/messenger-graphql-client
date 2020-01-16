@@ -22,7 +22,7 @@ const updateMessages = (
     }
   });
 
-  if (data.channel.messages.some(m => m.id === message.id))
+  if (data.channel.messageFeed.messages.some(m => m.id === message.id))
     return;
 
   cache.writeQuery({
@@ -34,10 +34,13 @@ const updateMessages = (
       ...data,
       channel: {
         ...data.channel,
-        messages: [
-          message,
-          ...data.channel.messages
-        ]
+        messageFeed: {
+          ...data.channel.messageFeed,
+          messages: [
+            message,
+            ...data.channel.messageFeed.messages
+          ]
+        }
       }
     }
   });
