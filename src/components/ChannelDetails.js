@@ -32,17 +32,20 @@ const ChannelDetails = ({ match: { params: { id } } }) => {
 
       const newMessage = subscriptionData.data.messageAdded;
 
-      if (prev.channel.messages.some(m => m.id === newMessage.id))
+      if (prev.channel.messageFeed.messages.some(m => m.id === newMessage.id))
         return prev;
 
       return {
         ...prev,
         channel: {
           ...prev.channel,
-          messages: [
-            newMessage,
-            ...prev.channel.messages
-          ]
+          messageFeed: {
+            ...prev.channel.messageFeed,
+            messages: [
+              newMessage,
+              ...prev.channel.messageFeed.messages
+            ]
+          }
         }
       };
     }
